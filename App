@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mi App Web</title>
+</head>
+<body>
+
+<h1>Hola mundo 🌍</h1>
+<button onclick="saludar()">Click</button>
+
+<script src="app.js"></script>
+</body>
+</html>

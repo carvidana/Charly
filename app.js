@@ -7,36 +7,16 @@ function showTab(id){
 // SHA3
 /////////////////////////
 
-/////////////////////////
-// SHA3 ADVANCED
-/////////////////////////
-
 function shaHash(){
-  const txt = document.getElementById("shaInput").value
-  const salt = document.getElementById("shaSalt").value
-  const iter = parseInt(document.getElementById("shaIter").value) || 1
-
-  let h = txt + salt
-
-  for(let i=0;i<iter;i++){
-    h = sha3_512(h)
-  }
-
-  document.getElementById("shaOut").textContent = h
+  const t = sha3_512(document.getElementById("shaInput").value)
+  document.getElementById("shaOut").textContent = t
 }
 
 function shaVerify(){
-  const txt = document.getElementById("shaVerifyText").value
-  const salt = document.getElementById("shaSalt").value
-  const iter = parseInt(document.getElementById("shaIter").value) || 1
-  const given = document.getElementById("shaCheck").value.trim()
-
-  let h = txt + salt
-  for(let i=0;i<iter;i++){
-    h = sha3_512(h)
-  }
-
-  alert(h === given ? "Coincide ✅" : "No coincide ❌")
+  const txt = document.getElementById("shaInput").value
+  const h = sha3_512(txt)
+  const given = document.getElementById("shaCheck").value
+  alert(h === given ? "Hash coincide ✅" : "Hash distinto ❌")
 }
 
 

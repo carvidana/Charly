@@ -34,7 +34,7 @@
 <pre id="shaOut"></pre>
 </div>
 
-<!-- ARGON ENCRYPT -->
+<!-- ARGON -->
 <div id="argon" class="card hidden">
 <h2>Argon2id + AES-GCM</h2>
 <textarea id="argonText"></textarea>
@@ -54,19 +54,9 @@
 <pre id="edOut"></pre>
 </div>
 
-
-<!-- SIGN -->
-<div id="sign" class="card hidden">
-<h2>Ed25519 Firma Digital</h2>
-<textarea id="signText" placeholder="Mensaje"></textarea>
-<button onclick="genKeys()">Generar claves</button>
-<button onclick="signMsg()">Firmar</button>
-<button onclick="verifyMsg()">Verificar</button>
-<pre id="signOut"></pre>
-</div>
-
 </div>
 
 <script src="app.js"></script>
 </body>
 </html>
+

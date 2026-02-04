@@ -1,12 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <title>Mi App Web</title>
+<meta charset="utf-8">
+<title>CryptoLab — Ed25519 / Argon2id / SHA3</title>
+
+<link rel="stylesheet" href="style.css">
+
+<!-- Librerías crypto -->
+<script src="https://cdn.jsdelivr.net/npm/tweetnacl/nacl.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-sha3/build/sha3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/argon2-browser/dist/argon2-bundled.min.js"></script>
+
 </head>
 <body>
 
-<h1>Hola mundo 🌍</h1>
-<button onclick="saludar()">Click</button>
+<div class="container">
+
+<h1>🔐 CryptoLab Web</h1>
+
+<div class="tabs">
+<button onclick="showTab('hash')">SHA3-512</button>
+<button onclick="showTab('encrypt')">Encrypt / Decrypt</button>
+<button onclick="showTab('sign')">Ed25519 Sign</button>
+</div>
+
+<!-- SHA3 -->
+<div id="hash" class="card">
+<h2>SHA3-512 Hash</h2>
+<textarea id="hashInput" placeholder="Texto"></textarea>
+<button onclick="doHash()">Generar Hash</button>
+<pre id="hashOut"></pre>
+</div>
+
+<!-- ENCRYPT -->
+<div id="encrypt" class="card hidden">
+<h2>Argon2id + AES-GCM</h2>
+<textarea id="encText" placeholder="Texto"></textarea>
+<input id="password" type="password" placeholder="Contraseña">
+<button onclick="encrypt()">Encriptar</button>
+<button onclick="decrypt()">Desencriptar</button>
+<pre id="encOut"></pre>
+</div>
+
+<!-- SIGN -->
+<div id="sign" class="card hidden">
+<h2>Ed25519 Firma Digital</h2>
+<textarea id="signText" placeholder="Mensaje"></textarea>
+<button onclick="genKeys()">Generar claves</button>
+<button onclick="signMsg()">Firmar</button>
+<button onclick="verifyMsg()">Verificar</button>
+<pre id="signOut"></pre>
+</div>
+
+</div>
 
 <script src="app.js"></script>
 </body>

@@ -19,28 +19,41 @@
 <h1>🔐 CryptoLab Web</h1>
 
 <div class="tabs">
-<button onclick="showTab('hash')">SHA3-512</button>
-<button onclick="showTab('encrypt')">Encrypt / Decrypt</button>
-<button onclick="showTab('sign')">Ed25519 Sign</button>
+<button onclick="showTab('sha3')">SHA3-512</button>
+<button onclick="showTab('argon')">Argon2id Encrypt</button>
+<button onclick="showTab('ed')">Ed25519 Sign</button>
 </div>
 
 <!-- SHA3 -->
-<div id="hash" class="card">
-<h2>SHA3-512 Hash</h2>
-<textarea id="hashInput" placeholder="Texto"></textarea>
-<button onclick="doHash()">Generar Hash</button>
-<pre id="hashOut"></pre>
+<div id="sha3" class="card">
+<h2>SHA3-512 Hash / Verify</h2>
+<textarea id="shaInput" placeholder="Texto"></textarea>
+<button onclick="shaHash()">Hash</button>
+<input id="shaCheck" placeholder="Hash a comparar">
+<button onclick="shaVerify()">Verificar</button>
+<pre id="shaOut"></pre>
 </div>
 
-<!-- ENCRYPT -->
-<div id="encrypt" class="card hidden">
+<!-- ARGON ENCRYPT -->
+<div id="argon" class="card hidden">
 <h2>Argon2id + AES-GCM</h2>
-<textarea id="encText" placeholder="Texto"></textarea>
-<input id="password" type="password" placeholder="Contraseña">
-<button onclick="encrypt()">Encriptar</button>
-<button onclick="decrypt()">Desencriptar</button>
-<pre id="encOut"></pre>
+<textarea id="argonText"></textarea>
+<input id="argonPass" type="password" placeholder="Contraseña">
+<button onclick="argonEncrypt()">Encriptar</button>
+<button onclick="argonDecrypt()">Desencriptar</button>
+<pre id="argonOut"></pre>
 </div>
+
+<!-- ED25519 -->
+<div id="ed" class="card hidden">
+<h2>Ed25519 Firma</h2>
+<textarea id="edText"></textarea>
+<button onclick="edGen()">Generar claves</button>
+<button onclick="edSign()">Firmar</button>
+<button onclick="edVerify()">Verificar</button>
+<pre id="edOut"></pre>
+</div>
+
 
 <!-- SIGN -->
 <div id="sign" class="card hidden">

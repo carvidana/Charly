@@ -46,22 +46,27 @@
 
 <!-- ED25519 -->
 <div id="ed" class="card hidden">
-<h2>Ed25519 Firma Digital</h2>
+<h2>Ed25519 Sistema Completo</h2>
 
 <textarea id="edText" placeholder="Mensaje"></textarea>
 
-<button onclick="edGen()">Generar claves</button>
-<button onclick="edExport()">Exportar claves</button>
+<div class="row">
+<button onclick="edGen()">1️⃣ Generar claves</button>
+<button onclick="edSave()">2️⃣ Guardar claves</button>
+</div>
 
-<textarea id="edPriv" placeholder="Clave privada Base64"></textarea>
-<textarea id="edPub" placeholder="Clave pública Base64"></textarea>
+<input type="file" id="keyFile" onchange="edLoadFile()">
 
-<button onclick="edImport()">Cargar claves</button>
-<button onclick="edSign()">Firmar</button>
-<button onclick="edVerify()">Verificar</button>
+<div class="row">
+<button onclick="edSign()">4️⃣ Firmar mensaje</button>
+<button onclick="edVerify()">5️⃣ Verificar firma</button>
+</div>
+
+<textarea id="sigInput" placeholder="Firma Base64 (para verificar)"></textarea>
 
 <pre id="edOut"></pre>
 </div>
+
 
 
 </div>

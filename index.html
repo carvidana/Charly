@@ -26,13 +26,24 @@
 
 <!-- SHA3 -->
 <div id="sha3" class="card">
-<h2>SHA3-512 Hash / Verify</h2>
+<h2>SHA3-512 Hash Lab</h2>
+
 <textarea id="shaInput" placeholder="Texto"></textarea>
-<button onclick="shaHash()">Hash</button>
-<input id="shaCheck" placeholder="Hash a comparar">
+
+<input id="shaSalt" placeholder="Salt (opcional)">
+<input id="shaIter" type="number" value="1" placeholder="Iteraciones">
+
+<button onclick="shaHash()">Generar Hash</button>
+
+<hr>
+
+<textarea id="shaVerifyText" placeholder="Texto a verificar"></textarea>
+<input id="shaCheck" placeholder="Hash esperado">
 <button onclick="shaVerify()">Verificar</button>
+
 <pre id="shaOut"></pre>
 </div>
+
 
 <!-- ARGON -->
 <div id="argon" class="card hidden">

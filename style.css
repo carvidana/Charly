@@ -68,6 +68,13 @@ pre {
   border-radius: 10px;
   overflow-wrap: anywhere;
 }
+.row {
+  display:flex;
+  gap:10px;
+  margin-bottom:10px;
+  flex-wrap:wrap;
+}
+
 
 .hidden {
   display: none;

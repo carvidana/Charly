@@ -10,16 +10,24 @@ function showTab(id){
 /////////////////////////
 
 function shaHash(){
-  const txt = document.getElementById("shaInput").value
+  const txt0 = document.getElementById("shaInput").value
+  const n = parseInt(document.getElementById("shaIter").value || 1)
+
+  let txt = txt0
 
   const t0 = performance.now()
-  const h = sha3_512(txt)
+
+  for(let i=0;i<n;i++){
+    txt = sha3_512(txt)
+  }
+
   const t1 = performance.now()
 
   document.getElementById("shaTime").textContent =
     (t1-t0).toFixed(3)
 
-  document.getElementById("shaOut").textContent = h
+  document.getElementById("shaIterUsed").textContent = n
+  document.getElementById("shaOut").textContent = txt
 }
 
 function shaVerify(){
@@ -35,16 +43,26 @@ function shaVerify(){
 
 async function derive(pass){
   const salt = new TextEncoder().encode("cryptolab")
+  const it = parseInt(document.getElementById("argonIter").value || 2)
+
+  const d0 = performance.now()
 
   const r = await argon2.hash({
     pass,
     salt,
     type: argon2.ArgonType.Argon2id,
     hashLen: 32,
-    time: 2,
+    time: it,
     mem: 64*1024,
     parallelism: 1
   })
+
+  const d1 = performance.now()
+
+  document.getElementById("argonDeriveTime").textContent =
+    (d1-d0).toFixed(2)
+
+  document.getElementById("argonIterUsed").textContent = it
 
   return crypto.subtle.importKey(
     "raw", r.hash,
@@ -66,8 +84,15 @@ async function argonEncrypt(){
   const data = new TextEncoder().encode(
     document.getElementById("argonText").value)
 
+  const a0 = performance.now()
+
   const enc = await crypto.subtle.encrypt(
     {name:"AES-GCM",iv}, key, data)
+
+  const a1 = performance.now()
+
+  document.getElementById("argonAesTime").textContent =
+    (a1-a0).toFixed(3)
 
   const t1 = performance.now()
 
@@ -95,8 +120,15 @@ async function argonDecrypt(){
   const dat = Uint8Array.from(atob(parts[1]),
     c=>c.charCodeAt(0))
 
+  const a0 = performance.now()
+
   const dec = await crypto.subtle.decrypt(
     {name:"AES-GCM",iv}, key, dat)
+
+  const a1 = performance.now()
+
+  document.getElementById("argonAesTime").textContent =
+    (a1-a0).toFixed(3)
 
   const t1 = performance.now()
 
@@ -113,10 +145,7 @@ async function argonDecrypt(){
 
 let edKeys = null
 
-function b64(u8){
-  return btoa(String.fromCharCode(...u8))
-}
-
+function b64(u8){ return btoa(String.fromCharCode(...u8)) }
 function fromB64(s){
   return Uint8Array.from(atob(s),
     c=>c.charCodeAt(0))
@@ -127,28 +156,9 @@ function edGen(){
   log("✔ Claves generadas")
 }
 
-function edSave(){
-  if(!edKeys) return alert("Genera claves primero")
-
-  const txt =
-`PUBLIC=${b64(edKeys.publicKey)}
-PRIVATE=${b64(edKeys.secretKey)}`
-
-  const blob = new Blob([txt],
-    {type:"text/plain"})
-
-  const a = document.createElement("a")
-  a.href = URL.createObjectURL(blob)
-  a.download = "ed25519.keys"
-  a.click()
-
-  log("✔ Claves guardadas")
-}
-
 function edLoadFile(){
   const f = document.getElementById("keyFile").files[0]
   if(!f) return
-
   const r = new FileReader()
   r.onload = e=>{
     const t = e.target.result.split("\n")
@@ -168,16 +178,23 @@ function edSign(){
   const msg = new TextEncoder().encode(
     document.getElementById("edText").value)
 
+  const n = parseInt(document.getElementById("edIter").value || 1)
+
   const t0 = performance.now()
-  const sig = nacl.sign.detached(
-    msg, edKeys.secretKey)
+
+  let sig
+  for(let i=0;i<n;i++){
+    sig = nacl.sign.detached(msg, edKeys.secretKey)
+  }
+
   const t1 = performance.now()
 
   document.getElementById("edTime").textContent =
     (t1-t0).toFixed(3)
 
-  document.getElementById("sigInput").value =
-    b64(sig)
+  document.getElementById("edIterUsed").textContent = n
+
+  document.getElementById("sigInput").value = b64(sig)
 
   log("Firma generada")
 }
@@ -192,13 +209,8 @@ function edVerify(){
   const sig = fromB64(
     document.getElementById("sigInput").value.trim())
 
-  const t0 = performance.now()
   const ok = nacl.sign.detached.verify(
     msg, sig, edKeys.publicKey)
-  const t1 = performance.now()
-
-  document.getElementById("edTime").textContent =
-    (t1-t0).toFixed(3)
 
   log(ok ? "✔ Firma válida" : "❌ Firma inválida")
 }

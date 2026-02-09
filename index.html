@@ -29,6 +29,11 @@
 <h2>SHA3-512 Hash</h2>
 
 <textarea id="shaInput" placeholder="Texto"></textarea>
+
+<!-- NUEVO -->
+<label>Iteraciones SHA3:</label>
+<input id="shaIter" type="number" value="1" min="1">
+
 <button onclick="shaHash()">Hash</button>
 
 <input id="shaCheck" placeholder="Hash a comparar">
@@ -39,6 +44,12 @@
 <div class="metricBox">
 ⏱ Tiempo hash: <span id="shaTime">—</span> ms
 </div>
+
+<!-- NUEVO -->
+<div class="metricBox">
+🔁 Iteraciones usadas: <span id="shaIterUsed">—</span>
+</div>
+
 </div>
 
 <!-- ARGON -->
@@ -48,14 +59,29 @@
 <textarea id="argonText" placeholder="Texto"></textarea>
 <input id="argonPass" type="password" placeholder="Contraseña">
 
+<!-- NUEVO -->
+<label>Iteraciones Argon2:</label>
+<input id="argonIter" type="number" value="2" min="1">
+
 <button onclick="argonEncrypt()">Encriptar</button>
 <button onclick="argonDecrypt()">Desencriptar</button>
 
 <pre id="argonOut"></pre>
 
 <div class="metricBox">
-⏱ Tiempo operación: <span id="argonTime">—</span> ms
+⏱ Tiempo operación AES: <span id="argonTime">—</span> ms
 </div>
+
+<!-- NUEVO -->
+<div class="metricBox">
+🧠 Tiempo derivación Argon2: <span id="argonDeriveTime">—</span> ms
+</div>
+
+<!-- NUEVO -->
+<div class="metricBox">
+🔁 Iteraciones Argon2 usadas: <span id="argonIterUsed">—</span>
+</div>
+
 </div>
 
 <!-- ED25519 -->
@@ -63,6 +89,10 @@
 <h2>Ed25519 Firma Digital</h2>
 
 <textarea id="edText" placeholder="Mensaje"></textarea>
+
+<!-- NUEVO -->
+<label>Repeticiones de firma:</label>
+<input id="edIter" type="number" value="1" min="1">
 
 <div class="row">
 <button onclick="edGen()">Generar claves</button>
@@ -83,6 +113,12 @@
 <div class="metricBox">
 ⏱ Tiempo operación: <span id="edTime">—</span> ms
 </div>
+
+<!-- NUEVO -->
+<div class="metricBox">
+🔁 Firmas realizadas: <span id="edIterUsed">—</span>
+</div>
+
 </div>
 
 </div>
@@ -90,4 +126,3 @@
 <script src="app.js"></script>
 </body>
 </html>
-

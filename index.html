@@ -40,8 +40,7 @@
 <pre id="shaOut"></pre>
 
 <div class="metricBox">
-⏱ Tiempo hash: <span id="shaTime">—</span> ms<br>
-🔁 Iteraciones usadas: <span id="shaIterUsed">—</span>
+⏱ Tiempo hash: <span id="shaTime">—</span> ms
 </div>
 
 </div>
@@ -62,10 +61,7 @@
 <pre id="argonOut"></pre>
 
 <div class="metricBox">
-⏱ Tiempo total: <span id="argonTime">—</span> ms<br>
-🧂 Derivación Argon2: <span id="argonDeriveTime">—</span> ms<br>
-🔐 AES: <span id="argonAesTime">—</span> ms<br>
-🔁 Iteraciones Argon2: <span id="argonIterUsed">—</span>
+⏱ Tiempo operación: <span id="argonTime">—</span> ms
 </div>
 
 </div>
@@ -80,6 +76,7 @@
 
 <div class="row">
 <button onclick="edGen()">Generar claves</button>
+<button onclick="edSave()">Guardar claves</button>
 </div>
 
 <input type="file" id="keyFile" onchange="edLoadFile()">
@@ -94,8 +91,7 @@
 <pre id="edOut"></pre>
 
 <div class="metricBox">
-⏱ Tiempo firma: <span id="edTime">—</span> ms<br>
-🔁 Iteraciones firma: <span id="edIterUsed">—</span>
+⏱ Tiempo operación: <span id="edTime">—</span> ms
 </div>
 
 </div>

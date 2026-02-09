@@ -6,12 +6,21 @@ function showTab(id){
 }
 
 /////////////////////////
+// UTIL — auto iteraciones
+/////////////////////////
+
+function calcIters(len, scale=20, max=50){
+  return Math.min(max, Math.max(1, Math.ceil(len/scale)))
+}
+
+/////////////////////////
 // SHA3
 /////////////////////////
 
 function shaHash(){
+
   const txt0 = document.getElementById("shaInput").value
-  const n = parseInt(document.getElementById("shaIter").value || 1)
+  const n = calcIters(txt0.length, 25, 80)
 
   let txt = txt0
 
@@ -41,9 +50,10 @@ function shaVerify(){
 // ARGON2 + AES
 /////////////////////////
 
-async function derive(pass){
+async function derive(pass, len){
+
+  const it = calcIters(len, 40, 6) // Argon debe ser bajo
   const salt = new TextEncoder().encode("cryptolab")
-  const it = parseInt(document.getElementById("argonIter").value || 2)
 
   const d0 = performance.now()
 
@@ -74,15 +84,17 @@ async function derive(pass){
 
 async function argonEncrypt(){
 
+  const text =
+    document.getElementById("argonText").value
+
   const t0 = performance.now()
 
   const key = await derive(
-    document.getElementById("argonPass").value)
+    document.getElementById("argonPass").value,
+    text.length)
 
   const iv = crypto.getRandomValues(new Uint8Array(12))
-
-  const data = new TextEncoder().encode(
-    document.getElementById("argonText").value)
+  const data = new TextEncoder().encode(text)
 
   const a0 = performance.now()
 
@@ -106,13 +118,16 @@ async function argonEncrypt(){
 
 async function argonDecrypt(){
 
+  const parts = document.getElementById("argonOut")
+    .textContent.split(".")
+
+  const len = parts[1]?.length || 10
+
   const t0 = performance.now()
 
   const key = await derive(
-    document.getElementById("argonPass").value)
-
-  const parts = document.getElementById("argonOut")
-    .textContent.split(".")
+    document.getElementById("argonPass").value,
+    len)
 
   const iv = Uint8Array.from(atob(parts[0]),
     c=>c.charCodeAt(0))
@@ -175,10 +190,12 @@ function edSign(){
 
   if(!edKeys) return alert("No hay clave privada")
 
-  const msg = new TextEncoder().encode(
-    document.getElementById("edText").value)
+  const msgText =
+    document.getElementById("edText").value
 
-  const n = parseInt(document.getElementById("edIter").value || 1)
+  const msg = new TextEncoder().encode(msgText)
+
+  const n = calcIters(msgText.length, 30, 60)
 
   const t0 = performance.now()
 

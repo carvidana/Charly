@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<title>MY APP — Ed25519 / Argon2id / SHA3</title>
+<title>CryptoLab — SHA3 / Argon2id / Ed25519</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -16,64 +16,74 @@
 
 <div class="container">
 
-<h1>My App</h1>
+<h1>🔐 CryptoLab Web</h1>
 
 <div class="tabs">
-<button onclick="showTab('sha3')">SHA3-512</button>
-<button onclick="showTab('argon')">Argon2id Encrypt</button>
-<button onclick="showTab('ed')">Ed25519 Sign</button>
+<button onclick="showTab('sha3')">SHA3</button>
+<button onclick="showTab('argon')">Argon2 + AES</button>
+<button onclick="showTab('ed')">Ed25519</button>
 </div>
 
 <!-- SHA3 -->
 <div id="sha3" class="card">
-<h2>SHA3-512 Hash / Verify</h2>
+<h2>SHA3-512 Hash</h2>
 
 <textarea id="shaInput" placeholder="Texto"></textarea>
-
 <button onclick="shaHash()">Hash</button>
 
 <input id="shaCheck" placeholder="Hash a comparar">
-
 <button onclick="shaVerify()">Verificar</button>
 
 <pre id="shaOut"></pre>
-</div>
 
+<div class="metricBox">
+⏱ Tiempo hash: <span id="shaTime">—</span> ms
+</div>
+</div>
 
 <!-- ARGON -->
 <div id="argon" class="card hidden">
 <h2>Argon2id + AES-GCM</h2>
-<textarea id="argonText"></textarea>
+
+<textarea id="argonText" placeholder="Texto"></textarea>
 <input id="argonPass" type="password" placeholder="Contraseña">
+
 <button onclick="argonEncrypt()">Encriptar</button>
 <button onclick="argonDecrypt()">Desencriptar</button>
+
 <pre id="argonOut"></pre>
+
+<div class="metricBox">
+⏱ Tiempo operación: <span id="argonTime">—</span> ms
+</div>
 </div>
 
 <!-- ED25519 -->
 <div id="ed" class="card hidden">
-<h2>Ed25519 Sistema Completo</h2>
+<h2>Ed25519 Firma Digital</h2>
 
 <textarea id="edText" placeholder="Mensaje"></textarea>
 
 <div class="row">
-<button onclick="edGen()">1️⃣ Generar claves</button>
-<button onclick="edSave()">2️⃣ Guardar claves</button>
+<button onclick="edGen()">Generar claves</button>
+<button onclick="edSave()">Guardar claves</button>
 </div>
 
 <input type="file" id="keyFile" onchange="edLoadFile()">
 
 <div class="row">
-<button onclick="edSign()">4️⃣ Firmar mensaje</button>
-<button onclick="edVerify()">5️⃣ Verificar firma</button>
+<button onclick="edSign()">Firmar</button>
+<button onclick="edVerify()">Verificar</button>
 </div>
 
-<textarea id="sigInput" placeholder="Firma Base64 (para verificar)"></textarea>
+<textarea id="sigInput" placeholder="Firma Base64"></textarea>
 
 <pre id="edOut"></pre>
+
+<div class="metricBox">
+⏱ Tiempo operación: <span id="edTime">—</span> ms
 </div>
-
-
+</div>
 
 </div>
 

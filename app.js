@@ -95,8 +95,7 @@ async function argonEncrypt(){
 
   document.getElementById("argonOut").textContent = out
 
-  const box = document.getElementById("argonCipher")
-  if(box) box.value = out
+
 
   const t1 = performance.now()
   document.getElementById("argonTime").textContent =

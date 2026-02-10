@@ -100,7 +100,7 @@ document.getElementById("argonOut").textContent = out
 const box = document.getElementById("argonCipher")
 if(box) box.value = out
 
-
+}
 
 async function argonDecrypt(){
 

@@ -17,6 +17,7 @@
 <div class="container">
 
 <h1>🔐 CryptoLab Web</h1>
+
 <p style="text-align:center;opacity:.8">
 Laboratorio de criptografía — Hash, Derivación y Firma Digital
 </p>
@@ -33,14 +34,14 @@ Laboratorio de criptografía — Hash, Derivación y Firma Digital
 
 <h2>SHA3-512 Hash</h2>
 
-<textarea id="shaInput" placeholder="Ingresa texto a hashear"></textarea>
+<textarea id="shaInput" placeholder="Ingresa texto"></textarea>
 
 <div class="row">
-<button onclick="shaHash()">Calcular Hash</button>
-<button onclick="shaVerify()">Verificar Hash</button>
+<button type="button" onclick="shaHash()">Hash</button>
+<button type="button" onclick="shaVerify()">Verificar</button>
 </div>
 
-<input id="shaCheck" placeholder="Pega hash para comparar">
+<input id="shaCheck" placeholder="Hash a comparar">
 
 <pre id="shaOut"></pre>
 
@@ -54,15 +55,15 @@ Laboratorio de criptografía — Hash, Derivación y Firma Digital
 
 <div id="argon" class="card hidden">
 
-<h2>Argon2id + AES-GCM Cifrado</h2>
+<h2>Argon2id + AES-GCM</h2>
 
-<textarea id="argonText" placeholder="Texto a cifrar"></textarea>
+<textarea id="argonText" placeholder="Texto"></textarea>
 
-<input id="argonPass" type="password" placeholder="Contraseña de derivación">
+<input id="argonPass" type="password" placeholder="Contraseña">
 
 <div class="row">
-<button onclick="argonEncrypt()">Encriptar</button>
-<button onclick="argonDecrypt()">Desencriptar</button>
+<button type="button" onclick="argonEncrypt()">Encriptar</button>
+<button type="button" onclick="argonDecrypt()">Desencriptar</button>
 </div>
 
 <pre id="argonOut"></pre>
@@ -79,19 +80,19 @@ Laboratorio de criptografía — Hash, Derivación y Firma Digital
 
 <h2>Ed25519 Firma Digital</h2>
 
-<textarea id="edText" placeholder="Mensaje a firmar"></textarea>
+<textarea id="edText" placeholder="Mensaje"></textarea>
 
 <div class="row">
-<button onclick="edGen()">Generar claves</button>
-<button onclick="edSave()">Guardar claves</button>
+<button type="button" onclick="edGen()">Generar claves</button>
+<button type="button" onclick="edSave()">Guardar claves</button>
 </div>
 
-<label>📂 Cargar archivo de claves:</label>
+<label>Cargar archivo de claves:</label>
 <input type="file" id="keyFile" onchange="edLoadFile()">
 
 <div class="row">
-<button onclick="edSign()">Firmar mensaje</button>
-<button onclick="edVerify()">Verificar firma</button>
+<button type="button" onclick="edSign()">Firmar</button>
+<button type="button" onclick="edVerify()">Verificar</button>
 </div>
 
 <textarea id="sigInput" placeholder="Firma Base64"></textarea>
@@ -106,6 +107,7 @@ Laboratorio de criptografía — Hash, Derivación y Firma Digital
 
 </div>
 
+<!-- app.js al FINAL para asegurar DOM cargado -->
 <script src="app.js"></script>
 
 </body>

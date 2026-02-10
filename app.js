@@ -61,46 +61,45 @@ async function derive(pass, iter){
 }
 
 
-async function argonEncrypt(){
+async function argonDecrypt(){
 
   const pass = document.getElementById("argonPass").value
 
-  // iteraciones automáticas por tamaño contraseña
-  const iter = Math.max(2, Math.ceil(pass.length / 4))
+  const src =
+    document.getElementById("argonCipher")?.value ||
+    document.getElementById("argonOut").textContent
 
-  const iterBox = document.getElementById("argonIter")
-  if(iterBox) iterBox.textContent = iter
+  const parts = src.split("|")
+
+  if(parts.length !== 3){
+    alert("Formato inválido")
+    return
+  }
+
+  const iter = parseInt(parts[0])
+
+  const iv = Uint8Array.from(atob(parts[1]),
+    c=>c.charCodeAt(0))
+
+  const dat = Uint8Array.from(atob(parts[2]),
+    c=>c.charCodeAt(0))
 
   const t0 = performance.now()
 
   const key = await derive(pass, iter)
 
-  const iv = crypto.getRandomValues(new Uint8Array(12))
-
-  const data = new TextEncoder().encode(
-    document.getElementById("argonText").value)
-
-  const enc = await crypto.subtle.encrypt(
-    {name:"AES-GCM",iv}, key, data)
+  const dec = await crypto.subtle.decrypt(
+    {name:"AES-GCM",iv}, key, dat)
 
   const t1 = performance.now()
 
   document.getElementById("argonTime").textContent =
     (t1-t0).toFixed(2)
 
-  // guardamos iteraciones + iv + datos
-const out =
-  iter + "." +
-  btoa(String.fromCharCode(...iv)) + "." +
-  btoa(String.fromCharCode(...new Uint8Array(enc)))
-
-document.getElementById("argonOut").textContent = out
-
-// ✅ agregado — copia automática al textarea editable
-const box = document.getElementById("argonCipher")
-if(box) box.value = out
-
+  document.getElementById("argonText").value =
+    new TextDecoder().decode(dec)
 }
+
 
 async function argonDecrypt(){
 

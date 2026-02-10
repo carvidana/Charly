@@ -58,16 +58,21 @@
 <textarea id="argonText" placeholder="Texto"></textarea>
 <input id="argonPass" type="password" placeholder="Contraseña">
 
+<!-- SOLO botón encriptar arriba -->
 <div class="row">
 <button onclick="argonEncrypt()">Encriptar</button>
-<button onclick="argonDecrypt()">Desencriptar</button>
 </div>
 
 <pre id="argonOut"></pre>
 
-<!-- ✅ necesario para pegar ciphertext tras refrescar -->
+<!-- pegar ciphertext -->
 <textarea id="argonCipher"
 placeholder="Pega aquí texto cifrado para desencriptar"></textarea>
+
+<!-- ✅ botón desencriptar ahora va aquí -->
+<div class="row">
+<button onclick="argonDecrypt()">Desencriptar</button>
+</div>
 
 <div class="metricBox">
 ⏱ Tiempo operación: <span id="argonTime">—</span> ms
@@ -78,6 +83,7 @@ placeholder="Pega aquí texto cifrado para desencriptar"></textarea>
 </div>
 
 </div>
+
 
 <!-- ================= ED25519 ================= -->
 

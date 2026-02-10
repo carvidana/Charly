@@ -24,15 +24,19 @@
 <button onclick="showTab('ed')">Ed25519</button>
 </div>
 
-<!-- SHA3 -->
+<!-- ================= SHA3 ================= -->
+
 <div id="sha3" class="card">
 <h2>SHA3-512 Hash</h2>
 
 <textarea id="shaInput" placeholder="Texto"></textarea>
+
+<div class="row">
 <button onclick="shaHash()">Hash</button>
+<button onclick="shaVerify()">Verificar</button>
+</div>
 
 <input id="shaCheck" placeholder="Hash a comparar">
-<button onclick="shaVerify()">Verificar</button>
 
 <pre id="shaOut"></pre>
 
@@ -40,38 +44,43 @@
 ⏱ Tiempo hash: <span id="shaTime">—</span> ms
 </div>
 
-<!-- ✅ AGREGADO -->
 <div class="metricBox">
 🔁 Iteraciones hash: <span id="shaIter">—</span>
 </div>
 
 </div>
 
-<!-- ARGON -->
+<!-- ================= ARGON ================= -->
+
 <div id="argon" class="card hidden">
 <h2>Argon2id + AES-GCM</h2>
 
 <textarea id="argonText" placeholder="Texto"></textarea>
 <input id="argonPass" type="password" placeholder="Contraseña">
 
+<div class="row">
 <button onclick="argonEncrypt()">Encriptar</button>
 <button onclick="argonDecrypt()">Desencriptar</button>
+</div>
 
 <pre id="argonOut"></pre>
-<textarea id="argonCipher" placeholder="Pega aquí texto cifrado para desencriptar"></textarea>
+
+<!-- ✅ necesario para pegar ciphertext tras refrescar -->
+<textarea id="argonCipher"
+placeholder="Pega aquí texto cifrado para desencriptar"></textarea>
 
 <div class="metricBox">
 ⏱ Tiempo operación: <span id="argonTime">—</span> ms
 </div>
 
-<!-- ✅ AGREGADO -->
 <div class="metricBox">
 🔁 Iteraciones derivación: <span id="argonIter">—</span>
 </div>
 
 </div>
 
-<!-- ED25519 -->
+<!-- ================= ED25519 ================= -->
+
 <div id="ed" class="card hidden">
 <h2>Ed25519 Firma Digital</h2>
 
@@ -97,7 +106,6 @@
 ⏱ Tiempo operación: <span id="edTime">—</span> ms
 </div>
 
-<!-- ✅ AGREGADO -->
 <div class="metricBox">
 🔁 Iteraciones firma: <span id="edIter">—</span>
 </div>
@@ -106,6 +114,8 @@
 
 </div>
 
+<!-- ✅ MUY IMPORTANTE — cargar JS al final -->
 <script src="app.js"></script>
+
 </body>
 </html>

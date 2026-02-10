@@ -18,30 +18,21 @@
 
 <h1>🔐 CryptoLab Web</h1>
 
-<p style="text-align:center;opacity:.8">
-Laboratorio de criptografía — Hash, Derivación y Firma Digital
-</p>
-
 <div class="tabs">
-<button onclick="showTab('sha3')">SHA3-512 Hash</button>
-<button onclick="showTab('argon')">Argon2id + AES-GCM</button>
-<button onclick="showTab('ed')">Ed25519 Firma</button>
+<button onclick="showTab('sha3')">SHA3</button>
+<button onclick="showTab('argon')">Argon2 + AES</button>
+<button onclick="showTab('ed')">Ed25519</button>
 </div>
 
-<!-- ================= SHA3 ================= -->
-
+<!-- SHA3 -->
 <div id="sha3" class="card">
-
 <h2>SHA3-512 Hash</h2>
 
-<textarea id="shaInput" placeholder="Ingresa texto"></textarea>
-
-<div class="row">
-<button type="button" onclick="shaHash()">Hash</button>
-<button type="button" onclick="shaVerify()">Verificar</button>
-</div>
+<textarea id="shaInput" placeholder="Texto"></textarea>
+<button onclick="shaHash()">Hash</button>
 
 <input id="shaCheck" placeholder="Hash a comparar">
+<button onclick="shaVerify()">Verificar</button>
 
 <pre id="shaOut"></pre>
 
@@ -49,22 +40,22 @@ Laboratorio de criptografía — Hash, Derivación y Firma Digital
 ⏱ Tiempo hash: <span id="shaTime">—</span> ms
 </div>
 
+<!-- ✅ AGREGADO -->
+<div class="metricBox">
+🔁 Iteraciones hash: <span id="shaIter">—</span>
 </div>
 
-<!-- ================= ARGON ================= -->
+</div>
 
+<!-- ARGON -->
 <div id="argon" class="card hidden">
-
 <h2>Argon2id + AES-GCM</h2>
 
 <textarea id="argonText" placeholder="Texto"></textarea>
-
 <input id="argonPass" type="password" placeholder="Contraseña">
 
-<div class="row">
-<button type="button" onclick="argonEncrypt()">Encriptar</button>
-<button type="button" onclick="argonDecrypt()">Desencriptar</button>
-</div>
+<button onclick="argonEncrypt()">Encriptar</button>
+<button onclick="argonDecrypt()">Desencriptar</button>
 
 <pre id="argonOut"></pre>
 
@@ -72,27 +63,29 @@ Laboratorio de criptografía — Hash, Derivación y Firma Digital
 ⏱ Tiempo operación: <span id="argonTime">—</span> ms
 </div>
 
+<!-- ✅ AGREGADO -->
+<div class="metricBox">
+🔁 Iteraciones derivación: <span id="argonIter">—</span>
 </div>
 
-<!-- ================= ED25519 ================= -->
+</div>
 
+<!-- ED25519 -->
 <div id="ed" class="card hidden">
-
 <h2>Ed25519 Firma Digital</h2>
 
 <textarea id="edText" placeholder="Mensaje"></textarea>
 
 <div class="row">
-<button type="button" onclick="edGen()">Generar claves</button>
-<button type="button" onclick="edSave()">Guardar claves</button>
+<button onclick="edGen()">Generar claves</button>
+<button onclick="edSave()">Guardar claves</button>
 </div>
 
-<label>Cargar archivo de claves:</label>
 <input type="file" id="keyFile" onchange="edLoadFile()">
 
 <div class="row">
-<button type="button" onclick="edSign()">Firmar</button>
-<button type="button" onclick="edVerify()">Verificar</button>
+<button onclick="edSign()">Firmar</button>
+<button onclick="edVerify()">Verificar</button>
 </div>
 
 <textarea id="sigInput" placeholder="Firma Base64"></textarea>
@@ -103,12 +96,15 @@ Laboratorio de criptografía — Hash, Derivación y Firma Digital
 ⏱ Tiempo operación: <span id="edTime">—</span> ms
 </div>
 
+<!-- ✅ AGREGADO -->
+<div class="metricBox">
+🔁 Iteraciones firma: <span id="edIter">—</span>
 </div>
 
 </div>
 
-<!-- app.js al FINAL para asegurar DOM cargado -->
+</div>
+
 <script src="app.js"></script>
-
 </body>
 </html>

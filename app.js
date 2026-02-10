@@ -89,19 +89,29 @@ async function argonEncrypt(){
     (t1-t0).toFixed(2)
 
   // guardamos iteraciones + iv + datos
-  document.getElementById("argonOut").textContent =
-    iter + "." +
-    btoa(String.fromCharCode(...iv)) + "." +
-    btoa(String.fromCharCode(...new Uint8Array(enc)))
-}
+const out =
+  iter + "." +
+  btoa(String.fromCharCode(...iv)) + "." +
+  btoa(String.fromCharCode(...new Uint8Array(enc)))
+
+document.getElementById("argonOut").textContent = out
+
+// ✅ agregado — copia automática al textarea editable
+const box = document.getElementById("argonCipher")
+if(box) box.value = out
+
 
 
 async function argonDecrypt(){
 
   const pass = document.getElementById("argonPass").value
 
-  const parts = document.getElementById("argonOut")
-    .textContent.split(".")
+ const src =
+  document.getElementById("argonCipher")?.value ||
+  document.getElementById("argonOut").textContent
+
+const parts = src.split(".")
+
 
   if(parts.length !== 3){
     alert("Formato cifrado inválido")

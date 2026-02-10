@@ -40,7 +40,6 @@ function shaVerify(){
 
 async function derive(pass){
 
-  // iteraciones automáticas por tamaño contraseña
   const iter = Math.max(2, Math.ceil(pass.length / 4))
 
   const iterBox = document.getElementById("argonIter")
@@ -67,10 +66,7 @@ async function derive(pass){
   )
 }
 
-
 async function argonEncrypt(){
-
-  const t0 = performance.now()
 
   const pass = document.getElementById("argonPass").value
   const text = document.getElementById("argonText").value
@@ -80,10 +76,11 @@ async function argonEncrypt(){
     return
   }
 
+  const t0 = performance.now()
+
   const key = await derive(pass)
 
   const iv = crypto.getRandomValues(new Uint8Array(12))
-
   const data = new TextEncoder().encode(text)
 
   const enc = await crypto.subtle.encrypt(
@@ -98,7 +95,6 @@ async function argonEncrypt(){
 
   document.getElementById("argonOut").textContent = out
 
-  // permite pegar tras refresh
   const box = document.getElementById("argonCipher")
   if(box) box.value = out
 
@@ -107,10 +103,7 @@ async function argonEncrypt(){
     (t1-t0).toFixed(2)
 }
 
-
 async function argonDecrypt(){
-
-  const t0 = performance.now()
 
   const pass = document.getElementById("argonPass").value
 
@@ -130,15 +123,13 @@ async function argonDecrypt(){
     return
   }
 
-  const iv = Uint8Array.from(
-    atob(parts[0]),
-    c => c.charCodeAt(0)
-  )
+  const iv = Uint8Array.from(atob(parts[0]),
+    c=>c.charCodeAt(0))
 
-  const dat = Uint8Array.from(
-    atob(parts[1]),
-    c => c.charCodeAt(0)
-  )
+  const dat = Uint8Array.from(atob(parts[1]),
+    c=>c.charCodeAt(0))
+
+  const t0 = performance.now()
 
   const key = await derive(pass)
 
@@ -152,7 +143,7 @@ async function argonDecrypt(){
     document.getElementById("argonText").value =
       new TextDecoder().decode(dec)
 
-  }catch(e){
+  }catch{
     alert("Contraseña incorrecta o datos dañados")
     return
   }
@@ -161,7 +152,6 @@ async function argonDecrypt(){
   document.getElementById("argonTime").textContent =
     (t1-t0).toFixed(2)
 }
-
 
 
 /////////////////////////

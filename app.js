@@ -49,8 +49,8 @@ async function derive(pass){
   const salt = new TextEncoder().encode("cryptolab")
 
   const r = await argon2.hash({
-    pass,
-    salt,
+    pass: pass,
+    salt: salt,
     type: argon2.ArgonType.Argon2id,
     hashLen: 32,
     time: iter,
@@ -59,7 +59,8 @@ async function derive(pass){
   })
 
   return crypto.subtle.importKey(
-    "raw", r.hash,
+    "raw",
+    r.hash,
     {name:"AES-GCM"},
     false,
     ["encrypt","decrypt"]
@@ -71,21 +72,25 @@ async function argonEncrypt(){
 
   const t0 = performance.now()
 
-  const key = await derive(
-    document.getElementById("argonPass").value)
+  const pass = document.getElementById("argonPass").value
+  const text = document.getElementById("argonText").value
+
+  if(!pass || !text){
+    alert("Falta contraseña o texto")
+    return
+  }
+
+  const key = await derive(pass)
 
   const iv = crypto.getRandomValues(new Uint8Array(12))
 
-  const data = new TextEncoder().encode(
-    document.getElementById("argonText").value)
+  const data = new TextEncoder().encode(text)
 
   const enc = await crypto.subtle.encrypt(
-    {name:"AES-GCM",iv}, key, data)
-
-  const t1 = performance.now()
-
-  document.getElementById("argonTime").textContent =
-    (t1-t0).toFixed(2)
+    {name:"AES-GCM", iv},
+    key,
+    data
+  )
 
   const out =
     btoa(String.fromCharCode(...iv)) + "." +
@@ -93,9 +98,13 @@ async function argonEncrypt(){
 
   document.getElementById("argonOut").textContent = out
 
-  // permite pegar después de refresh
+  // permite pegar tras refresh
   const box = document.getElementById("argonCipher")
   if(box) box.value = out
+
+  const t1 = performance.now()
+  document.getElementById("argonTime").textContent =
+    (t1-t0).toFixed(2)
 }
 
 
@@ -103,12 +112,16 @@ async function argonDecrypt(){
 
   const t0 = performance.now()
 
-  const key = await derive(
-    document.getElementById("argonPass").value)
+  const pass = document.getElementById("argonPass").value
 
   const src =
     document.getElementById("argonCipher")?.value ||
     document.getElementById("argonOut").textContent
+
+  if(!pass || !src){
+    alert("Falta contraseña o cifrado")
+    return
+  }
 
   const parts = src.split(".")
 
@@ -117,69 +130,38 @@ async function argonDecrypt(){
     return
   }
 
-  const iv = Uint8Array.from(atob(parts[0]),
-    c=>c.charCodeAt(0))
+  const iv = Uint8Array.from(
+    atob(parts[0]),
+    c => c.charCodeAt(0)
+  )
 
-  const dat = Uint8Array.from(atob(parts[1]),
-    c=>c.charCodeAt(0))
+  const dat = Uint8Array.from(
+    atob(parts[1]),
+    c => c.charCodeAt(0)
+  )
 
-  const dec = await crypto.subtle.decrypt(
-    {name:"AES-GCM",iv}, key, dat)
+  const key = await derive(pass)
 
-  const t1 = performance.now()
+  try{
+    const dec = await crypto.subtle.decrypt(
+      {name:"AES-GCM", iv},
+      key,
+      dat
+    )
 
-  document.getElementById("argonTime").textContent =
-    (t1-t0).toFixed(2)
+    document.getElementById("argonText").value =
+      new TextDecoder().decode(dec)
 
-  document.getElementById("argonText").value =
-    new TextDecoder().decode(dec)
-}
-
-
-
-
-async function argonDecrypt(){
-
-  const pass = document.getElementById("argonPass").value
-
- const src =
-  document.getElementById("argonCipher")?.value ||
-  document.getElementById("argonOut").textContent
-
-const parts = src.split(".")
-
-
-  if(parts.length !== 3){
-    alert("Formato cifrado inválido")
+  }catch(e){
+    alert("Contraseña incorrecta o datos dañados")
     return
   }
 
-  const iter = parseInt(parts[0])
-
-  const iv = Uint8Array.from(atob(parts[1]),
-    c=>c.charCodeAt(0))
-
-  const dat = Uint8Array.from(atob(parts[2]),
-    c=>c.charCodeAt(0))
-
-  const iterBox = document.getElementById("argonIter")
-  if(iterBox) iterBox.textContent = iter
-
-  const t0 = performance.now()
-
-  const key = await derive(pass, iter)
-
-  const dec = await crypto.subtle.decrypt(
-    {name:"AES-GCM",iv}, key, dat)
-
   const t1 = performance.now()
-
   document.getElementById("argonTime").textContent =
     (t1-t0).toFixed(2)
-
-  document.getElementById("argonText").value =
-    new TextDecoder().decode(dec)
 }
+
 
 
 /////////////////////////

@@ -68,7 +68,6 @@ async function argonDecrypt(){
   const key = await derive(
     document.getElementById("argonPass").value)
 
-  // ✅ solo esto cambia — origen del texto cifrado
   const src =
     document.getElementById("argonCipher")?.value ||
     document.getElementById("argonOut").textContent
@@ -97,6 +96,7 @@ async function argonDecrypt(){
   document.getElementById("argonText").value =
     new TextDecoder().decode(dec)
 }
+
 
 
 

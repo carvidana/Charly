@@ -38,12 +38,7 @@ function shaVerify(){
 // ARGON2 + AES
 /////////////////////////
 
-async function derive(pass){
-
-  // ✅ AGREGADO — iteraciones dinámicas por tamaño contraseña
-  const dynIter = Math.max(2, Math.ceil(pass.length / 4))
-  const iterBox = document.getElementById("argonIter")
-  if(iterBox) iterBox.textContent = dynIter
+async function derive(pass, iter){
 
   const salt = new TextEncoder().encode("cryptolab")
 
@@ -52,7 +47,7 @@ async function derive(pass){
     salt,
     type: argon2.ArgonType.Argon2id,
     hashLen: 32,
-    time: dynIter,           // ← usa iteraciones dinámicas
+    time: iter,
     mem: 64*1024,
     parallelism: 1
   })
@@ -65,12 +60,20 @@ async function derive(pass){
   )
 }
 
+
 async function argonEncrypt(){
+
+  const pass = document.getElementById("argonPass").value
+
+  // iteraciones automáticas por tamaño contraseña
+  const iter = Math.max(2, Math.ceil(pass.length / 4))
+
+  const iterBox = document.getElementById("argonIter")
+  if(iterBox) iterBox.textContent = iter
 
   const t0 = performance.now()
 
-  const key = await derive(
-    document.getElementById("argonPass").value)
+  const key = await derive(pass, iter)
 
   const iv = crypto.getRandomValues(new Uint8Array(12))
 
@@ -85,26 +88,40 @@ async function argonEncrypt(){
   document.getElementById("argonTime").textContent =
     (t1-t0).toFixed(2)
 
+  // guardamos iteraciones + iv + datos
   document.getElementById("argonOut").textContent =
-    btoa(String.fromCharCode(...iv))+"."+
+    iter + "." +
+    btoa(String.fromCharCode(...iv)) + "." +
     btoa(String.fromCharCode(...new Uint8Array(enc)))
 }
 
+
 async function argonDecrypt(){
 
-  const t0 = performance.now()
-
-  const key = await derive(
-    document.getElementById("argonPass").value)
+  const pass = document.getElementById("argonPass").value
 
   const parts = document.getElementById("argonOut")
     .textContent.split(".")
 
-  const iv = Uint8Array.from(atob(parts[0]),
+  if(parts.length !== 3){
+    alert("Formato cifrado inválido")
+    return
+  }
+
+  const iter = parseInt(parts[0])
+
+  const iv = Uint8Array.from(atob(parts[1]),
     c=>c.charCodeAt(0))
 
-  const dat = Uint8Array.from(atob(parts[1]),
+  const dat = Uint8Array.from(atob(parts[2]),
     c=>c.charCodeAt(0))
+
+  const iterBox = document.getElementById("argonIter")
+  if(iterBox) iterBox.textContent = iter
+
+  const t0 = performance.now()
+
+  const key = await derive(pass, iter)
 
   const dec = await crypto.subtle.decrypt(
     {name:"AES-GCM",iv}, key, dat)
@@ -117,6 +134,7 @@ async function argonDecrypt(){
   document.getElementById("argonText").value =
     new TextDecoder().decode(dec)
 }
+
 
 /////////////////////////
 // ED25519

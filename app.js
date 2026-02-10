@@ -38,7 +38,13 @@ function shaVerify(){
 // ARGON2 + AES
 /////////////////////////
 
-async function derive(pass, iter){
+async function derive(pass){
+
+  // iteraciones automáticas por tamaño contraseña
+  const iter = Math.max(2, Math.ceil(pass.length / 4))
+
+  const iterBox = document.getElementById("argonIter")
+  if(iterBox) iterBox.textContent = iter
 
   const salt = new TextEncoder().encode("cryptolab")
 
@@ -58,6 +64,38 @@ async function derive(pass, iter){
     false,
     ["encrypt","decrypt"]
   )
+}
+
+
+async function argonEncrypt(){
+
+  const t0 = performance.now()
+
+  const key = await derive(
+    document.getElementById("argonPass").value)
+
+  const iv = crypto.getRandomValues(new Uint8Array(12))
+
+  const data = new TextEncoder().encode(
+    document.getElementById("argonText").value)
+
+  const enc = await crypto.subtle.encrypt(
+    {name:"AES-GCM",iv}, key, data)
+
+  const t1 = performance.now()
+
+  document.getElementById("argonTime").textContent =
+    (t1-t0).toFixed(2)
+
+  const out =
+    btoa(String.fromCharCode(...iv)) + "." +
+    btoa(String.fromCharCode(...new Uint8Array(enc)))
+
+  document.getElementById("argonOut").textContent = out
+
+  // permite pegar después de refresh
+  const box = document.getElementById("argonCipher")
+  if(box) box.value = out
 }
 
 

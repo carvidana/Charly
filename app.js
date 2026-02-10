@@ -63,30 +63,28 @@ async function derive(pass, iter){
 
 async function argonDecrypt(){
 
-  const pass = document.getElementById("argonPass").value
+  const t0 = performance.now()
 
+  const key = await derive(
+    document.getElementById("argonPass").value)
+
+  // ✅ solo esto cambia — origen del texto cifrado
   const src =
     document.getElementById("argonCipher")?.value ||
     document.getElementById("argonOut").textContent
 
-  const parts = src.split("|")
+  const parts = src.split(".")
 
-  if(parts.length !== 3){
+  if(parts.length !== 2){
     alert("Formato inválido")
     return
   }
 
-  const iter = parseInt(parts[0])
-
-  const iv = Uint8Array.from(atob(parts[1]),
+  const iv = Uint8Array.from(atob(parts[0]),
     c=>c.charCodeAt(0))
 
-  const dat = Uint8Array.from(atob(parts[2]),
+  const dat = Uint8Array.from(atob(parts[1]),
     c=>c.charCodeAt(0))
-
-  const t0 = performance.now()
-
-  const key = await derive(pass, iter)
 
   const dec = await crypto.subtle.decrypt(
     {name:"AES-GCM",iv}, key, dat)
@@ -99,6 +97,7 @@ async function argonDecrypt(){
   document.getElementById("argonText").value =
     new TextDecoder().decode(dec)
 }
+
 
 
 async function argonDecrypt(){

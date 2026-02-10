@@ -17,11 +17,14 @@
 <div class="container">
 
 <h1>🔐 CryptoLab Web</h1>
+<p style="text-align:center;opacity:.8">
+Laboratorio de criptografía — Hash, Derivación y Firma Digital
+</p>
 
 <div class="tabs">
-<button onclick="showTab('sha3')">SHA3</button>
-<button onclick="showTab('argon')">Argon2 + AES</button>
-<button onclick="showTab('ed')">Ed25519</button>
+<button onclick="showTab('sha3')">SHA3-512 Hash</button>
+<button onclick="showTab('argon')">Argon2id + AES-GCM</button>
+<button onclick="showTab('ed')">Ed25519 Firma</button>
 </div>
 
 <!-- ================= SHA3 ================= -->
@@ -30,12 +33,14 @@
 
 <h2>SHA3-512 Hash</h2>
 
-<textarea id="shaInput" placeholder="Texto"></textarea>
+<textarea id="shaInput" placeholder="Ingresa texto a hashear"></textarea>
 
-<button onclick="shaHash()">Hash</button>
+<div class="row">
+<button onclick="shaHash()">Calcular Hash</button>
+<button onclick="shaVerify()">Verificar Hash</button>
+</div>
 
-<input id="shaCheck" placeholder="Hash a comparar">
-<button onclick="shaVerify()">Verificar</button>
+<input id="shaCheck" placeholder="Pega hash para comparar">
 
 <pre id="shaOut"></pre>
 
@@ -49,14 +54,16 @@
 
 <div id="argon" class="card hidden">
 
-<h2>Argon2id + AES-GCM</h2>
+<h2>Argon2id + AES-GCM Cifrado</h2>
 
-<textarea id="argonText" placeholder="Texto"></textarea>
+<textarea id="argonText" placeholder="Texto a cifrar"></textarea>
 
-<input id="argonPass" type="password" placeholder="Contraseña">
+<input id="argonPass" type="password" placeholder="Contraseña de derivación">
 
+<div class="row">
 <button onclick="argonEncrypt()">Encriptar</button>
 <button onclick="argonDecrypt()">Desencriptar</button>
+</div>
 
 <pre id="argonOut"></pre>
 
@@ -72,18 +79,19 @@
 
 <h2>Ed25519 Firma Digital</h2>
 
-<textarea id="edText" placeholder="Mensaje"></textarea>
+<textarea id="edText" placeholder="Mensaje a firmar"></textarea>
 
 <div class="row">
 <button onclick="edGen()">Generar claves</button>
 <button onclick="edSave()">Guardar claves</button>
 </div>
 
+<label>📂 Cargar archivo de claves:</label>
 <input type="file" id="keyFile" onchange="edLoadFile()">
 
 <div class="row">
-<button onclick="edSign()">Firmar</button>
-<button onclick="edVerify()">Verificar</button>
+<button onclick="edSign()">Firmar mensaje</button>
+<button onclick="edVerify()">Verificar firma</button>
 </div>
 
 <textarea id="sigInput" placeholder="Firma Base64"></textarea>

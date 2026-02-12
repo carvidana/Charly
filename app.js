@@ -157,6 +157,10 @@ async function argonDecrypt(){
 // ED25519
 /////////////////////////
 
+/////////////////////////
+// ED25519 TEXTO
+/////////////////////////
+
 let edKeys = null
 
 function b64(u8){
@@ -168,55 +172,56 @@ function fromB64(s){
     c=>c.charCodeAt(0))
 }
 
+
+// generar claves
 function edGen(){
+
   edKeys = nacl.sign.keyPair()
+
+  document.getElementById("pubKeyBox").value =
+    b64(edKeys.publicKey)
+
+  document.getElementById("privKeyBox").value =
+    b64(edKeys.secretKey)
+
   log("✔ Claves generadas")
 }
 
-function edSave(){
-  if(!edKeys) return alert("Genera claves primero")
 
-  const txt =
-`PUBLIC=${b64(edKeys.publicKey)}
-PRIVATE=${b64(edKeys.secretKey)}`
+// cargar claves pegadas
+function edLoadFromText(){
 
-  const blob = new Blob([txt],
-    {type:"text/plain"})
+  const pub = document.getElementById("pubKeyBox").value.trim()
+  const priv = document.getElementById("privKeyBox").value.trim()
 
-  const a = document.createElement("a")
-  a.href = URL.createObjectURL(blob)
-  a.download = "ed25519.keys"
-  a.click()
-
-  log("✔ Claves guardadas")
-}
-
-function edLoadFile(){
-  const f = document.getElementById("keyFile").files[0]
-  if(!f) return
-
-  const r = new FileReader()
-  r.onload = e=>{
-    const t = e.target.result.split("\n")
-    edKeys = {
-      publicKey: fromB64(t[0].split("=")[1]),
-      secretKey: fromB64(t[1].split("=")[1])
-    }
-    log("✔ Claves cargadas")
+  if(!pub){
+    alert("Falta clave pública")
+    return
   }
-  r.readAsText(f)
+
+  edKeys = {
+    publicKey: fromB64(pub),
+    secretKey: priv ? fromB64(priv) : null
+  }
+
+  log("✔ Claves cargadas desde texto")
 }
 
+
+// firmar
 function edSign(){
 
-  if(!edKeys) return alert("No hay clave privada")
+  if(!edKeys || !edKeys.secretKey)
+    return alert("No hay clave privada")
 
   const msgText = document.getElementById("edText").value
   const msg = new TextEncoder().encode(msgText)
 
   const t0 = performance.now()
+
   const sig = nacl.sign.detached(
     msg, edKeys.secretKey)
+
   const t1 = performance.now()
 
   document.getElementById("edTime").textContent =
@@ -225,16 +230,18 @@ function edSign(){
   document.getElementById("sigInput").value =
     b64(sig)
 
-  // ✅ AGREGADO — iteraciones basadas en tamaño mensaje
-  const iterBox = document.getElementById("edIter")
-  if(iterBox) iterBox.textContent = msgText.length
+  document.getElementById("edIter").textContent =
+    msgText.length
 
-  log("Firma generada")
+  log("✔ Firma generada")
 }
 
+
+// verificar
 function edVerify(){
 
-  if(!edKeys) return alert("No hay clave pública")
+  if(!edKeys || !edKeys.publicKey)
+    return alert("No hay clave pública")
 
   const msgText = document.getElementById("edText").value
   const msg = new TextEncoder().encode(msgText)
@@ -243,20 +250,23 @@ function edVerify(){
     document.getElementById("sigInput").value.trim())
 
   const t0 = performance.now()
+
   const ok = nacl.sign.detached.verify(
     msg, sig, edKeys.publicKey)
+
   const t1 = performance.now()
 
   document.getElementById("edTime").textContent =
     (t1-t0).toFixed(3)
 
-  // ✅ AGREGADO
-  const iterBox = document.getElementById("edIter")
-  if(iterBox) iterBox.textContent = msgText.length
+  document.getElementById("edIter").textContent =
+    msgText.length
 
   log(ok ? "✔ Firma válida" : "❌ Firma inválida")
 }
 
+
 function log(t){
   document.getElementById("edOut").textContent = t
 }
+

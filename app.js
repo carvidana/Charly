@@ -154,11 +154,7 @@ async function argonDecrypt(){
 
 
 /////////////////////////
-// ED25519
-/////////////////////////
-
-/////////////////////////
-// ED25519 TEXTO
+// ED25519 — claves en texto
 /////////////////////////
 
 let edKeys = null
@@ -168,8 +164,7 @@ function b64(u8){
 }
 
 function fromB64(s){
-  return Uint8Array.from(atob(s),
-    c=>c.charCodeAt(0))
+  return Uint8Array.from(atob(s), c => c.charCodeAt(0))
 }
 
 
@@ -184,7 +179,7 @@ function edGen(){
   document.getElementById("privKeyBox").value =
     b64(edKeys.secretKey)
 
-  log("✔ Claves generadas")
+  logEd("✔ Claves generadas")
 }
 
 
@@ -204,7 +199,7 @@ function edLoadFromText(){
     secretKey: priv ? fromB64(priv) : null
   }
 
-  log("✔ Claves cargadas desde texto")
+  logEd("✔ Claves cargadas")
 }
 
 
@@ -220,20 +215,19 @@ function edSign(){
   const t0 = performance.now()
 
   const sig = nacl.sign.detached(
-    msg, edKeys.secretKey)
+    msg,
+    edKeys.secretKey
+  )
 
   const t1 = performance.now()
 
+  document.getElementById("sigInput").value = b64(sig)
   document.getElementById("edTime").textContent =
     (t1-t0).toFixed(3)
-
-  document.getElementById("sigInput").value =
-    b64(sig)
-
   document.getElementById("edIter").textContent =
     msgText.length
 
-  log("✔ Firma generada")
+  logEd("✔ Firma generada")
 }
 
 
@@ -247,26 +241,29 @@ function edVerify(){
   const msg = new TextEncoder().encode(msgText)
 
   const sig = fromB64(
-    document.getElementById("sigInput").value.trim())
+    document.getElementById("sigInput").value.trim()
+  )
 
   const t0 = performance.now()
 
   const ok = nacl.sign.detached.verify(
-    msg, sig, edKeys.publicKey)
+    msg,
+    sig,
+    edKeys.publicKey
+  )
 
   const t1 = performance.now()
 
   document.getElementById("edTime").textContent =
     (t1-t0).toFixed(3)
-
   document.getElementById("edIter").textContent =
     msgText.length
 
-  log(ok ? "✔ Firma válida" : "❌ Firma inválida")
+  logEd(ok ? "✔ Firma válida" : "❌ Firma inválida")
 }
 
 
-function log(t){
+function logEd(t){
   document.getElementById("edOut").textContent = t
 }
 

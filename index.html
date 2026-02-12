@@ -87,6 +87,7 @@ placeholder="Pega aquí texto cifrado para desencriptar"></textarea>
 
 <!-- ================= ED25519 ================= -->
 
+
 <div id="ed" class="card hidden">
 <h2>Ed25519 Firma Digital</h2>
 
@@ -94,10 +95,14 @@ placeholder="Pega aquí texto cifrado para desencriptar"></textarea>
 
 <div class="row">
 <button onclick="edGen()">Generar claves</button>
-<button onclick="edSave()">Guardar claves</button>
+<button onclick="edLoadFromText()">Cargar claves pegadas</button>
 </div>
 
-<input type="file" id="keyFile" onchange="edLoadFile()">
+<h3>Clave pública (Base64)</h3>
+<textarea id="pubKeyBox"></textarea>
+
+<h3>Clave privada (Base64)</h3>
+<textarea id="privKeyBox"></textarea>
 
 <div class="row">
 <button onclick="edSign()">Firmar</button>
@@ -118,7 +123,7 @@ placeholder="Pega aquí texto cifrado para desencriptar"></textarea>
 
 </div>
 
-</div>
+
 
 <!-- ✅ MUY IMPORTANTE — cargar JS al final -->
 <script src="app.js"></script>

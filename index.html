@@ -89,27 +89,44 @@ placeholder="Pega aquí texto cifrado para desencriptar"></textarea>
 
 
 <div id="ed" class="card hidden">
+
 <h2>Ed25519 Firma Digital</h2>
 
 <textarea id="edText" placeholder="Mensaje"></textarea>
 
 <div class="row">
 <button onclick="edGen()">Generar claves</button>
-<button onclick="edLoad()">Cargar claves</button>
 </div>
 
-<label>Clave pública</label>
-<textarea id="pubKeyBox"></textarea>
+<!-- ===== CLAVES GENERADAS ===== -->
 
-<label>Clave privada</label>
-<textarea id="privKeyBox"></textarea>
+<h3>Clave Pública</h3>
+<textarea id="pubKeyBox"
+placeholder="Aquí aparecerá la clave pública"></textarea>
+
+<h3>Clave Privada</h3>
+<textarea id="privKeyBox"
+placeholder="Aquí aparecerá la clave privada"></textarea>
+
+<div class="row">
+<button onclick="edLoadManual()">Cargar claves</button>
+</div>
+
+<hr>
+
+<!-- ===== FIRMA ===== -->
 
 <div class="row">
 <button onclick="edSign()">Firmar</button>
-<button onclick="edVerify()">Verificar</button>
 </div>
 
-<textarea id="sigInput" placeholder="Firma Base64"></textarea>
+<textarea id="sigInput"
+placeholder="Firma Base64"></textarea>
+
+<!-- ✅ BOTON VERIFICAR ABAJO -->
+<div class="row">
+<button onclick="edVerify()">Verificar</button>
+</div>
 
 <pre id="edOut"></pre>
 

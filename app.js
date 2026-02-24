@@ -156,9 +156,7 @@ async function argonDecrypt(){
 /////////////////////////
 // ED25519 — claves en texto
 /////////////////////////
-/////////////////////////
-// ED25519 REAL
-/////////////////////////
+
 
 let edKeys = null
 
@@ -183,9 +181,26 @@ function edGen(){
   document.getElementById("privKeyBox").value =
     b64(edKeys.secretKey)
 
-  logEd("✔ Claves generadas")
+  log("✔ Claves generadas")
 }
 
+function edLoadManual(){
+
+  const pub = document.getElementById("pubKeyBox").value.trim()
+  const priv = document.getElementById("privKeyBox").value.trim()
+
+  if(!pub || !priv){
+    alert("Faltan claves")
+    return
+  }
+
+  edKeys = {
+    publicKey: fromB64(pub),
+    secretKey: fromB64(priv)
+  }
+
+  log("✔ Claves cargadas manualmente")
+}
 
 // cargar claves pegadas manualmente
 function edLoad(){

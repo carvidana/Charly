@@ -175,11 +175,11 @@ function edGen(){
 
   const kp = nacl.sign.keyPair()
 
-  document.getElementById("genPubKey").textContent =
-    b64(kp.publicKey)
+ document.getElementById("genPubKey").textContent =
+    "Clave pública:\n\n" + pub
 
   document.getElementById("genPrivKey").textContent =
-    b64(kp.secretKey)
+    "Clave privada:\n\n" + priv
 
   logEd("✔ Claves generadas (cópialas y pégalas abajo)")
 }

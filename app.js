@@ -175,14 +175,13 @@ function edGen(){
 
   const kp = nacl.sign.keyPair()
 
-  // SOLO mostrar en cuadro de generación
-  document.getElementById("genPubKey").value =
+  document.getElementById("genPubKey").textContent =
     b64(kp.publicKey)
 
-  document.getElementById("genPrivKey").value =
+  document.getElementById("genPrivKey").textContent =
     b64(kp.secretKey)
 
-  log("✔ Claves generadas (cópialas y pégalas abajo)")
+  logEd("✔ Claves generadas (cópialas y pégalas abajo)")
 }
 function edLoadManual(){
 

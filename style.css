@@ -83,11 +83,21 @@ pre {
   word-break: break-all;
 }
 .metricBox {
-  margin-top: 12px;
-  padding: 10px;
-  border-radius: 12px;
-  background: #020617;
+  margin-top: 18px;
+  padding: 18px 20px;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #0f172a, #020617);
   border: 1px solid #1e293b;
   font-family: monospace;
-  color: #38bdf8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 0 15px #0008;
+}
+.metricBox span {
+  font-size: 22px;
+  font-weight: bold;
+  color: #22d3ee;
 }

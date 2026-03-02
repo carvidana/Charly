@@ -104,11 +104,19 @@ async function argonEncrypt(){
 
 async function argonDecrypt(){
 
-  const pass = document.getElementById("argonPass").value
-  const src = document.getElementById("argonCipher").value.trim()
+  const passField = document.getElementById("argonPass")
+  const cipherField = document.getElementById("argonCipher")
 
-  if(!pass || !src){
+  const pass = passField.value.trim()
+  const src = cipherField.value.trim()
+
+  if(pass === "" || src === ""){
     alert("Falta contraseña o texto cifrado")
+    return
+  }
+
+  if(!src.includes(".")){
+    alert("Eso no parece un texto cifrado válido")
     return
   }
 
@@ -128,23 +136,24 @@ async function argonDecrypt(){
 
   try{
     const dec = await crypto.subtle.decrypt(
-      {name:"AES-GCM", iv},
+      { name: "AES-GCM", iv: iv },
       key,
       dat
     )
 
-    // 🔥 Ahora el resultado aparece en el mismo cuadro
-    document.getElementById("argonCipher").value =
-      new TextDecoder().decode(dec)
+    const textoPlano = new TextDecoder().decode(dec)
 
-  }catch{
+    // 🔥 SOLO modificar el cuadro de abajo
+    cipherField.value = textoPlano
+
+  }catch(e){
     alert("Contraseña incorrecta o datos dañados")
     return
   }
 
   const t1 = performance.now()
   document.getElementById("argonTime").textContent =
-    (t1-t0).toFixed(2)
+    (t1 - t0).toFixed(2)
 }
 
 /////////////////////////

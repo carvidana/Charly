@@ -115,7 +115,7 @@ textarea:focus, input:focus {
 
 .metricBox span {
   font-size: 38px;   /* antes 52px */
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 1px;
   color: #38bdf8;
   text-shadow: 0 0 18px rgba(56,189,248,0.5);

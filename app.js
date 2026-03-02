@@ -105,13 +105,10 @@ async function argonEncrypt(){
 async function argonDecrypt(){
 
   const pass = document.getElementById("argonPass").value
-
-  const src =
-    document.getElementById("argonCipher")?.value ||
-    document.getElementById("argonOut").textContent
+  const src = document.getElementById("argonCipher").value.trim()
 
   if(!pass || !src){
-    alert("Falta contraseña o cifrado")
+    alert("Falta contraseña o texto cifrado")
     return
   }
 
@@ -122,11 +119,8 @@ async function argonDecrypt(){
     return
   }
 
-  const iv = Uint8Array.from(atob(parts[0]),
-    c=>c.charCodeAt(0))
-
-  const dat = Uint8Array.from(atob(parts[1]),
-    c=>c.charCodeAt(0))
+  const iv = Uint8Array.from(atob(parts[0]), c=>c.charCodeAt(0))
+  const dat = Uint8Array.from(atob(parts[1]), c=>c.charCodeAt(0))
 
   const t0 = performance.now()
 
@@ -151,7 +145,6 @@ async function argonDecrypt(){
   document.getElementById("argonTime").textContent =
     (t1-t0).toFixed(2)
 }
-
 
 /////////////////////////
 // ED25519 — claves en texto

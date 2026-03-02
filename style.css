@@ -1,113 +1,139 @@
 body {
-  font-family: system-ui;
-  background: linear-gradient(135deg,#0f172a,#020617);
-  color: white;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: radial-gradient(circle at top, #1e293b 0%, #0f172a 40%, #020617 100%);
+  color: #f1f5f9;
   margin: 0;
+  min-height: 100vh;
 }
 
 .container {
-  max-width: 900px;
+  max-width: 1000px;
   margin: auto;
-  padding: 40px;
+  padding: 50px 30px;
 }
 
 h1 {
   text-align: center;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 40px;
 }
 
+/* Tabs */
 .tabs {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   justify-content: center;
-  margin-bottom: 25px;
+  margin-bottom: 35px;
 }
 
+/* Botones PRO */
 button {
-  background: #2563eb;
-  border: none;
-  padding: 12px 18px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 14px 22px;
   color: white;
-  border-radius: 10px;
+  border-radius: 14px;
   cursor: pointer;
   font-weight: 600;
+  font-size: 15px;
+  transition: all 0.25s ease;
+  box-shadow: 0 8px 20px rgba(37,99,235,0.3);
 }
 
 button:hover {
-  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(37,99,235,0.45);
 }
 
+/* Cards */
 .card {
-  background: #020617aa;
-  padding: 25px;
-  border-radius: 16px;
-  box-shadow: 0 0 30px #0006;
+  background: rgba(15, 23, 42, 0.85);
+  padding: 30px;
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,0.05);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
 }
 
+/* Inputs */
 textarea, input {
   width: 100%;
-  margin-bottom: 12px;
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
+  margin-bottom: 16px;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: #0f172a;
+  color: white;
+  font-size: 14px;
+  transition: all 0.2s ease;
 }
 
 textarea {
-  height: 120px;
+  height: 130px;
+  resize: none;
 }
 
-pre {
-  background: black;
-  padding: 12px;
-  border-radius: 10px;
-  overflow-wrap: anywhere;
+textarea:focus, input:focus {
+  outline: none;
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56,189,248,0.2);
+}
+
+/* Caja negra hash */
+.blackBox {
+  background: #000;
+  color: #00ff88;
+  padding: 18px;
+  border-radius: 14px;
+  font-family: monospace;
+  font-size: 13px;
+  overflow-x: auto;
+  word-break: break-all;
+  box-shadow: inset 0 0 25px #000;
+}
+
+/* Métricas PRO */
+.metricBox {
+  margin-top: 24px;
+  padding: 26px 32px;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #0f172a, #020617);
+  border: 1px solid rgba(56,189,248,0.18);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 500;
+  color: #94a3b8;
+  box-shadow:
+    0 15px 35px rgba(0,0,0,0.6),
+    inset 0 0 25px rgba(56,189,248,0.04);
+  transition: all 0.3s ease;
+}
+
+.metricBox span {
+  font-size: 52px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: #38bdf8;
+  text-shadow: 0 0 25px rgba(56,189,248,0.6);
+}
+
+.metricBox:hover {
+  transform: translateY(-4px);
+  border-color: rgba(56,189,248,0.4);
+}
+
+/* Layout row */
+.row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
 }
 
 .hidden {
   display: none;
-}
-
-.row {
-  display:flex;
-  gap:10px;
-  margin-bottom:10px;
-  flex-wrap:wrap;
-}
-.blackBox{
-  background: #000;
-  color: #00ff88;
-  padding: 15px;
-  border-radius: 8px;
-  font-family: monospace;
-  font-size: 12px;
-  overflow-x: auto;
-  word-break: break-all;
-}
-.metricBox {
-  margin-top: 22px;
-  padding: 22px 28px;
-  border-radius: 18px;
-  background: linear-gradient(145deg, #0f172a, #030712);
-  border: 1px solid rgba(56,189,248,0.15);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: system-ui, sans-serif;
-  font-size: 18px;
-  font-weight: 500;
-  color: #94a3b8;
-  box-shadow: 
-    0 10px 25px rgba(0,0,0,0.5),
-    inset 0 0 20px rgba(56,189,248,0.03);
-  transition: all 0.3s ease;
-}
-.metricBox span {
-  font-size: 42px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  color: #38bdf8;
-  text-shadow: 0 0 20px rgba(56,189,248,0.5);
-}
-.metricBox:hover {
-  transform: translateY(-3px);
-  border-color: rgba(56,189,248,0.35);
 }

@@ -133,7 +133,8 @@ async function argonDecrypt(){
       dat
     )
 
-    document.getElementById("argonText").value =
+    // 🔥 Ahora el resultado aparece en el mismo cuadro
+    document.getElementById("argonCipher").value =
       new TextDecoder().decode(dec)
 
   }catch{

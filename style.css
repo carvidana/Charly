@@ -83,21 +83,31 @@ pre {
   word-break: break-all;
 }
 .metricBox {
-  margin-top: 18px;
-  padding: 18px 20px;
-  border-radius: 14px;
-  background: linear-gradient(145deg, #0f172a, #020617);
-  border: 1px solid #1e293b;
-  font-family: monospace;
+  margin-top: 22px;
+  padding: 22px 28px;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #0f172a, #030712);
+  border: 1px solid rgba(56,189,248,0.15);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 16px;
-  letter-spacing: 0.5px;
-  box-shadow: 0 0 15px #0008;
+  font-family: system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #94a3b8;
+  box-shadow: 
+    0 10px 25px rgba(0,0,0,0.5),
+    inset 0 0 20px rgba(56,189,248,0.03);
+  transition: all 0.3s ease;
 }
 .metricBox span {
-  font-size: 22px;
-  font-weight: bold;
-  color: #22d3ee;
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #38bdf8;
+  text-shadow: 0 0 20px rgba(56,189,248,0.5);
+}
+.metricBox:hover {
+  transform: translateY(-3px);
+  border-color: rgba(56,189,248,0.35);
 }

@@ -96,29 +96,29 @@ textarea:focus, input:focus {
 
 /* Métricas PRO */
 .metricBox {
-  margin-top: 24px;
-  padding: 26px 32px;
-  border-radius: 20px;
+  margin-top: 12px;              /* antes 24px */
+  padding: 13px 16px;            /* antes 26px 32px */
+  border-radius: 14px;           /* antes 20px */
   background: linear-gradient(145deg, #0f172a, #020617);
   border: 1px solid rgba(56,189,248,0.18);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 18px;
+  font-size: 14px;               /* antes 18px */
   font-weight: 500;
   color: #94a3b8;
   box-shadow:
-    0 15px 35px rgba(0,0,0,0.6),
-    inset 0 0 25px rgba(56,189,248,0.04);
+    0 8px 18px rgba(0,0,0,0.6),
+    inset 0 0 15px rgba(56,189,248,0.04);
   transition: all 0.3s ease;
 }
 
 .metricBox span {
-  font-size: 38px;   /* antes 52px */
-  font-weight: 600;
-  letter-spacing: 1px;
+  font-size: 19px;              /* antes 38px */
+  font-weight: 800;
+  letter-spacing: 0.5px;
   color: #38bdf8;
-  text-shadow: 0 0 18px rgba(56,189,248,0.5);
+  text-shadow: 0 0 10px rgba(56,189,248,0.5);
 }
 
 .metricBox:hover {

@@ -72,7 +72,16 @@ pre {
   margin-bottom:10px;
   flex-wrap:wrap;
 }
-
+.blackBox{
+  background: #000;
+  color: #00ff88;
+  padding: 15px;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 12px;
+  overflow-x: auto;
+  word-break: break-all;
+}
 .metricBox {
   margin-top: 12px;
   padding: 10px;

@@ -114,11 +114,11 @@ textarea:focus, input:focus {
 }
 
 .metricBox span {
-  font-size: 52px;
-  font-weight: 900;
+  font-size: 38px;   /* antes 52px */
+  font-weight: 800;
   letter-spacing: 1px;
   color: #38bdf8;
-  text-shadow: 0 0 25px rgba(56,189,248,0.6);
+  text-shadow: 0 0 18px rgba(56,189,248,0.5);
 }
 
 .metricBox:hover {

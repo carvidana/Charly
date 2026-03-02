@@ -142,6 +142,8 @@ async function argonDecrypt(){
     )
 
     const textoPlano = new TextDecoder().decode(dec)
+    document.getElementById("argonText").value = ""
+
 
     // 🔥 SOLO modificar el cuadro de abajo
     cipherField.value = textoPlano
@@ -178,7 +180,10 @@ function edGen(){
 
   const kp = nacl.sign.keyPair()
 
- document.getElementById("genPubKey").textContent =
+  const pub = b64(kp.publicKey)
+  const priv = b64(kp.secretKey)
+
+  document.getElementById("genPubKey").textContent =
     "Clave pública:\n\n" + pub
 
   document.getElementById("genPrivKey").textContent =

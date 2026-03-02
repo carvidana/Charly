@@ -32,13 +32,19 @@
 <textarea id="shaInput" placeholder="Texto"></textarea>
 
 <div class="row">
-<button onclick="shaHash()">Hash</button>
-<button onclick="shaVerify()">Verificar</button>
+  <button onclick="shaHash()">Hash</button>
 </div>
 
-<input id="shaCheck" placeholder="Hash a comparar">
+<!-- 🔹 Resultado en cuadro negro -->
+<pre id="shaOut" class="blackBox"></pre>
 
-<pre id="shaOut"></pre>
+<!-- 🔹 Botón verificar abajo -->
+<div class="row">
+  <button onclick="shaVerify()">Verificar</button>
+</div>
+
+<!-- 🔹 Campo para pegar hash -->
+<input id="shaCheck" placeholder="Pega aquí el hash a comparar">
 
 <div class="metricBox">
 ⏱ Tiempo hash: <span id="shaTime">—</span> ms

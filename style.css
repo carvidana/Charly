@@ -63,9 +63,9 @@ textarea, input {
   margin-bottom: 16px;
   padding: 14px;
   border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.06);
-  background: #0f172a;
-  color: white;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: #0b1a2b;   /* azul noche */
+  color: #e2e8f0;
   font-size: 14px;
   transition: all 0.2s ease;
 }
@@ -78,9 +78,9 @@ textarea {
 textarea:focus, input:focus {
   outline: none;
   border-color: #38bdf8;
-  box-shadow: 0 0 0 3px rgba(56,189,248,0.2);
+  box-shadow: 0 0 0 3px rgba(56,189,248,0.25);
+  background: #0e2238;   /* azul un poco más claro al enfocar */
 }
-
 /* Caja negra hash */
 .blackBox {
   background: #000;
@@ -109,13 +109,6 @@ textarea:focus, input:focus {
   box-shadow: 0 6px 15px rgba(0,0,0,0.6);
 }
 
-/* texto izquierda */
-.metricBox label,
-.metricBox p,
-.metricBox div {
-  font-size: 13px;
-  margin: 0;
-}
 
 .metricValue {
   display: flex;

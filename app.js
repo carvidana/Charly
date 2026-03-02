@@ -173,17 +173,17 @@ function fromB64(s){
 // generar claves reales
 function edGen(){
 
-  edKeys = nacl.sign.keyPair()
+  const kp = nacl.sign.keyPair()
 
-  document.getElementById("pubKeyBox").value =
-    b64(edKeys.publicKey)
+  // SOLO mostrar en cuadro de generación
+  document.getElementById("genPubKey").value =
+    b64(kp.publicKey)
 
-  document.getElementById("privKeyBox").value =
-    b64(edKeys.secretKey)
+  document.getElementById("genPrivKey").value =
+    b64(kp.secretKey)
 
-  log("✔ Claves generadas")
+  log("✔ Claves generadas (cópialas y pégalas abajo)")
 }
-
 function edLoadManual(){
 
   const pub = document.getElementById("pubKeyBox").value.trim()

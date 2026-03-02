@@ -63,8 +63,8 @@ textarea, input {
   margin-bottom: 16px;
   padding: 14px;
   border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: #0b1a2b;   /* azul noche */
+  border: 1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(145deg, #0b1f35, #081626);
   color: #e2e8f0;
   font-size: 14px;
   transition: all 0.2s ease;
@@ -79,7 +79,7 @@ textarea:focus, input:focus {
   outline: none;
   border-color: #38bdf8;
   box-shadow: 0 0 0 3px rgba(56,189,248,0.25);
-  background: #0e2238;   /* azul un poco más claro al enfocar */
+  background: linear-gradient(145deg, #102944, #0b1f35);
 }
 /* Caja negra hash */
 .blackBox {
@@ -113,15 +113,19 @@ textarea:focus, input:focus {
 .metricValue {
   display: flex;
   align-items: baseline;
-  gap: 4px;   /* pequeño espacio entre número y ms */
+  gap: 0;            /* quitamos espacio */
 }
-
+.metricValue small {
+  font-size: 16px;
+  margin-left: 2px;  /* micro separación casi invisible */
+  color: #94a3b8;
+}
 .metricBox span {
-  font-size: 28px;   /* +25% aprox */
+  font-size: 32px;
   font-weight: 800;
   line-height: 1;
   color: #38bdf8;
-  text-shadow: 0 0 12px rgba(56,189,248,0.5);
+  text-shadow: 0 0 14px rgba(56,189,248,0.6);
 }
 .metricBox:hover {
   transform: translateY(-4px);

@@ -145,7 +145,7 @@ async function argonDecrypt(){
     document.getElementById("argonText").value = ""
 
 
-    // 🔥 SOLO modificar el cuadro de abajo
+    //  SOLO modificar el cuadro de abajo
     cipherField.value = textoPlano
 
   }catch(e){

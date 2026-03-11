@@ -28,12 +28,40 @@ function shaHash(){
 }
 
 function shaVerify(){
-  const txt = document.getElementById("shaInput").value
-  const h = sha3_512(txt)
-  const given = document.getElementById("shaCheck").value
-  alert(h === given ? "Coincide ✅" : "No coincide ❌")
-}
 
+  const txt = document.getElementById("shaInput").value
+  const given = document.getElementById("shaCheck").value.trim()
+
+  if(!txt || !given){
+    alert("Falta texto o hash para comparar")
+    return
+  }
+
+  const t0 = performance.now()
+
+  const newHash = sha3_512(txt)
+
+  const t1 = performance.now()
+
+  document.getElementById("shaTime").textContent =
+    (t1 - t0).toFixed(3)
+
+  const iter = Math.max(1, txt.length)
+  document.getElementById("shaIter").textContent = iter
+
+  let result = ""
+
+  if(newHash === given){
+    result = "✔ Hash coincide (texto válido)"
+  } else {
+    result = "❌ Hash diferente (texto alterado)"
+  }
+
+  document.getElementById("shaOut").textContent =
+    "Hash generado:\n\n" + newHash +
+    "\n\nHash ingresado:\n\n" + given +
+    "\n\nResultado:\n\n" + result
+}
 /////////////////////////
 // ARGON2 + AES
 /////////////////////////
